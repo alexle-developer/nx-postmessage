@@ -2,7 +2,14 @@
   "name": "@nx-postmessage/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "nx": "nx",
+    "start": "nx serve",
+    "build": "nx build",
+    "test": "nx test",
+    "lint": "nx workspace-lint && nx lint",
+    "parent": "npx nx run parent-app:serve:development --port 5000"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~17.1.0",
