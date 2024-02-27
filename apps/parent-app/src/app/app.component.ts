@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NxWelcomeComponent } from './nx-welcome.component';
 import { CommonModule } from '@angular/common';
@@ -12,30 +12,47 @@ import { CommonModule } from '@angular/common';
 })
 export class AppComponent implements OnInit {
   title = 'parent-app';
+  messageFromChild = '';
   messageToChild = '';
+  isMessageFromChild = false;
+
   ngOnInit(): void {
     this.messageToChild = '';
   }
 
-  // write a send message method that capture the value from the textarea and console log it
+  /**
+   * Sends a message to the child component.
+   *
+   * @param message - The message to be sent.
+   */
   sendMessage = (message: string) => {
     this.messageToChild = `${message}`;
-    console.log('message sent:', message);
     this.postMessage(message);
   };
 
-  // write a method to send a message to child app using window.postmessage
+  /**
+   * Sends a message to the child app through postMessage.
+   * @param message The message to be sent.
+   */
   postMessage = (message: string) => {
     const iframeElement = document.getElementById(
       'childAppIframe'
     ) as HTMLIFrameElement;
 
-    console.log('iframeElement:', iframeElement);
     iframeElement?.contentWindow?.postMessage(message, 'http://localhost:5001');
   };
 
-  // onMessage = (event: MessageEvent) => {
-  //   console.log('message received', event.data);
-  //   this.message = event.data;
-  // };
+  /**
+   * Handles the message event.
+   * @param event The message event.
+   */
+  @HostListener('window:message', ['$event'])
+  onMessage = (event: MessageEvent) => {
+    // clear out the message to child app
+    this.messageToChild = '';
+
+    // set the message from the child app
+    this.isMessageFromChild = true;
+    this.messageFromChild = event.data;
+  };
 }

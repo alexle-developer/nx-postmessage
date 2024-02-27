@@ -20,15 +20,28 @@ export class AppComponent implements OnInit {
     this.messageFromParent = 'No greeting message from the parent-app today';
   }
 
+  /**
+   * Sends a reply message to the parent app.
+   * @param message The message to send.
+   */
   replyToParent(message: string): void {
-    console.log('message sent:', message);
-    //.postMessage(message);
+    // clear the message from the parent app
+    this.messageFromParent = '';
+
+    // set the reply message to the parent app
+    this.messageToParent = message;
+    window.parent.postMessage(message, 'http://localhost:5000');
   }
-  // create a window listener to listen for messages from the parent-app
+
   @HostListener('window:message', ['$event'])
+  /**
+   * Handles the message event from the parent-app.
+   * Sets the message from the parent-app and updates the flag indicating that the message is from the parent.
+   * @param event The message event object.
+   */
   onMessage = (event: MessageEvent) => {
-    console.log('message received', event.data);
+    // set the message from the parent-app
     this.isMessageFromParent = true;
-    this.messageFromParent = event.data;
+    this.messageFromParent = `${event.data}`;
   };
 }
