@@ -430,10 +430,7 @@ import { CommonModule } from '@angular/common';
       <div class="container">
         <!--  WELCOME  -->
         <div id="welcome">
-          <h1>
-            <span> Hello there, </span>
-            Welcome parent-app 👋
-          </h1>
+          <h1>I am the parent-app 👋</h1>
         </div>
       </div>
     </div>

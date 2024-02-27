@@ -1,0 +1,23 @@
+<!-- <nx-postmessage-nx-welcome></nx-postmessage-nx-welcome> -->
+
+<div class="mb-3" *ngIf="!isMessageFromParent">
+  <p style="color: red">{{ messageFromParent }}</p>
+</div>
+<div class="mb-3" *ngIf="isMessageFromParent">
+  <p style="color: blue">{{ messageFromParent }}</p>
+</div>
+<div>
+  <button
+    id="btnParent"
+    type="button"
+    class="btn btn-primary"
+    (click)="replyToParent('This is the message sent from the parent-app')"
+  >
+    Reply to Parent App
+  </button>
+  <div>
+    {{ messageToParent }}
+  </div>
+</div>
+
+<router-outlet></router-outlet>

@@ -8,7 +8,8 @@
     "build": "nx build",
     "test": "nx test",
     "lint": "nx workspace-lint && nx lint",
-    "parent": "npx nx run parent-app:serve:development --port 5000"
+    "parent": "npx nx run parent-app:serve:development --port 5000",
+    "child": "npx nx run child-app:serve:development --port 5001"
   },
   "private": true,
   "dependencies": {
